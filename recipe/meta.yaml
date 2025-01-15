@@ -6,25 +6,25 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari_bigwarp-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari_bigwarp-{{ version }}.tar.gz
   sha256: 4b04d7305e36c33c8a79c03ef1f417f062c51d983de5561cd9527f4af8a93d90
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
     - magicgui
     - napari
     - napari-plugin-engine >=0.1.4
     - numpy
     - opencv
-    - python >=3.7
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -34,6 +34,7 @@ test:
     # - pip check. # opencv-contrib-python' issue
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/bkntr/napari-bigwarp
